@@ -74,8 +74,6 @@ def login():
                 return redirect(url_for('tasks'))
             else:
                 error = 'Invalid username or password.'
-        else:
-            error = 'both fields are required'
     return render_template('login.html', form=form, error=error)
 
 @app.route('/tasks/')
@@ -94,7 +92,7 @@ def new_task():
             new_task = Task(form.name.data, form.due_date.data, form.priority.data, datetime.datetime.utcnow(), '1', session['user_id'])
             db.session.add(new_task)
             db.session.commit()
-            flash('New entry was succesfully posted. Thanks')
+            flash('New entry was succesfully posted. Thanks.')
             return redirect(url_for('tasks'))
     return render_template('tasks.html', form=form, error=error, open_tasks=open_tasks(), closed_tasks=closed_tasks())
 
