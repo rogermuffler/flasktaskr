@@ -112,5 +112,13 @@ class UsersTests(unittest.TestCase):
         response = self.register('Fletcher', 'fletcher@realpython.com', 'python101', 'python101')
         self.assertIn(b'That username and/or email already exist.', response.data)
 
+    def test_default_user_role(self):
+        db.session.add(User("Johnny", "john@doe.com", "johnny"))
+        db.session.commit()
+        users = db.session.query(User).all()
+        print(users)
+        for user in users:
+            self.assertEquals(user.role, "user")
+
 if __name__ == "__main__":
         unittest.main()
